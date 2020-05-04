@@ -5,7 +5,7 @@ Game of life
 Python implementation of the famous John Conway's game of life.
 
 Based on the "starting_template.py", "shape_list_demo_3.py",
-, "array_backed_grid_buffered.py" and other examples from
+"array_backed_grid_buffered.py" and other examples from
 "https://arcade.academy/examples/index.html" by Paul Vincent Craven.
 
 The followig description comes from https://playgameoflife.com/,
@@ -52,8 +52,9 @@ HEIGHT = 10
 MARGIN = 1
 
 # Calculate screen dimensions
+FOOTER_HEIGHT = 145
 SCREEN_WIDTH = (WIDTH + MARGIN) * COLUMN_COUNT + MARGIN
-SCREEN_HEIGHT = (HEIGHT + MARGIN) * ROW_COUNT + MARGIN
+SCREEN_HEIGHT = FOOTER_HEIGHT + (HEIGHT + MARGIN) * ROW_COUNT + MARGIN
 
 # Set the grid and cells colors
 BACKGROUNG_COLOR = arcade.color.GRAY
@@ -241,6 +242,64 @@ class GameOfLife(arcade.Window):
 
         arcade.start_render()
         self.shape_list.draw()
+
+        # Draw the instructions on the screen
+
+        if self.simulate:
+            sim_status = "RUNNING"
+        else:
+            sim_status = "PAUSED"
+
+        arcade.draw_text(
+            f"{sim_status}",
+            SCREEN_WIDTH // 2,
+            FOOTER_HEIGHT - 20,
+            arcade.color.BLACK,
+            20,
+            align="center",
+            anchor_x="center",
+            anchor_y="center",
+        )
+
+        arcade.draw_text(
+            "- Press SPACE to pause/unpause the simulation",
+            10,
+            FOOTER_HEIGHT - 55,
+            arcade.color.BLACK,
+            12,
+        )
+
+        arcade.draw_text(
+            "- CLICK on a cell to change it's state",
+            10,
+            FOOTER_HEIGHT - 75,
+            arcade.color.BLACK,
+            12,
+        )
+
+        arcade.draw_text(
+            "- Press C to clear the grid",
+            10,
+            FOOTER_HEIGHT - 95,
+            arcade.color.BLACK,
+            12,
+        )
+
+        arcade.draw_text(
+            "- Press R to reset the grid with a random state",
+            10,
+            FOOTER_HEIGHT - 115,
+            arcade.color.BLACK,
+            12,
+        )
+
+        arcade.draw_text(
+            "- Press Q to quit the game",
+            10,
+            FOOTER_HEIGHT - 135,
+            arcade.color.BLACK,
+            12,
+        )
 
     def on_update(self, delta_time):
         """
